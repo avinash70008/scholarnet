@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RegistrationForm.css';
 
- export const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -11,7 +12,8 @@ import './RegistrationForm.css';
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setFormData({
@@ -71,14 +73,18 @@ import './RegistrationForm.css';
     }
   };
 
-  
+  const handleLoginClick = () => {
+   
+    navigate('/');
+  };
+
   return (
     <div>
       {submitted ? (
         <div>
           <h2>Welcome {formData.firstName} {formData.lastName}!</h2>
           <p>Phone Number: {formData.phone}</p>
-          <p><a href="/editprofile" >Edit Profile</a></p>
+          <p><a href="/editprofile">Edit Profile</a></p>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -89,7 +95,6 @@ import './RegistrationForm.css';
               name="firstName"
               value={formData.firstName}
               onChange={handleInputChange}
-              
             />
             {errors.firstName && <span>{errors.firstName}</span>}
           </label>
@@ -101,22 +106,20 @@ import './RegistrationForm.css';
               name="lastName"
               value={formData.lastName}
               onChange={handleInputChange}
-              
             />
             {errors.lastName && <span>{errors.lastName}</span>}
           </label>
 
           <label>
-  Email Address:
-  <input
-    type="text"
-    name="email"
-    value={formData.email}
-    onChange={handleInputChange}
-  />
-  {errors.email && <span>{errors.email}</span>}
-</label>
-
+            Email Address:
+            <input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+            {errors.email && <span>{errors.email}</span>}
+          </label>
 
           <label>
             Phone Number:
@@ -125,7 +128,6 @@ import './RegistrationForm.css';
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              
             />
             {errors.phone && <span>{errors.phone}</span>}
           </label>
@@ -137,20 +139,19 @@ import './RegistrationForm.css';
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              
             />
             {errors.password && <span>{errors.password}</span>}
           </label>
 
-        
-           
+          <button type="submit">Register</button>
+
+       
+          <button type="button" onClick={handleLoginClick}>
+            Login
+          </button>
          
-            <button type="submit">Register</button>
-            
-          
         </form>
       )}
     </div>
   );
 };
-

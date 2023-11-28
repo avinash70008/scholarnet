@@ -1,4 +1,3 @@
-// controllers/authController.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
@@ -10,7 +9,7 @@ exports.register = async (req, res) => {
   try {
     const { firstName, lastName, email, phone, password } = req.body;
 
-    // Check if the email already exists
+  
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'Email is already registered' });
@@ -51,7 +50,7 @@ exports.login = async (req, res) => {
 exports.editProfile = async (req, res) => {
   try {
     const { firstName, lastName, phone } = req.body;
-    const userId = req.userId; // Assuming you have middleware to extract userId from the token
+    const userId = req.userId; 
     const user = await User.findByIdAndUpdate(userId, { firstName, lastName, phone }, { new: true });
     
     if (!user) {
@@ -59,6 +58,22 @@ exports.editProfile = async (req, res) => {
     }
     
     res.json({ message: 'Profile updated successfully', user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { EditProfile } from './EditProfile'
 import { RegistrationForm } from './RegistrationForm'
-import LoginForm from './LoginForm'
+import  { LoginForm } from './LoginForm'
 
 
 export const AllRouters = () => {
