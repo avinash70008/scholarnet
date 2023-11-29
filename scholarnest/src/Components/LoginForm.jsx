@@ -27,7 +27,7 @@ export const LoginForm = () => {
 
         console.log('Login successful');
        
-        navigate('/editprofile');
+        navigate('/dashboard');
       } else {
   
         console.error('Login failed');
@@ -71,3 +71,4 @@ export const LoginForm = () => {
     </div>
   );
 };
+
